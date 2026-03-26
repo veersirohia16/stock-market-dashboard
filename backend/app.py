@@ -20,7 +20,7 @@ def get_stock_data(ticker):
         # Get stock info
         info = stock.info
 
-        # Get 6 months of historical data
+        # Get 6 months historical data
         hist = stock.history(period="6mo")
 
         if hist.empty:
@@ -31,7 +31,6 @@ def get_stock_data(ticker):
         # Convert date to string
         hist["Date"] = hist["Date"].astype(str)
 
-        # Latest values
         latest = hist.iloc[-1]
 
         response = {
