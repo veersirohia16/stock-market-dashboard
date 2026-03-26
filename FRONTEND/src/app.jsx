@@ -1,120 +1,62 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import StockCard from './components/stockcard'
+import StockChart from './components/stockchart'
+import StockTable from './components/stocktable'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [ticker, setTicker] = useState('AAPL')
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-slate-900 text-white p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Title */}
+        <h1 className="text-4xl font-bold text-center mb-2">
+          📈 Stock Market Dashboard
+        </h1>
+        <p className="text-center text-gray-400 mb-8">
+          Search and analyze stock market data
+        </p>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        {/* Search Bar */}
+        <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center">
+          <input
+            type="text"
+            placeholder="Enter stock ticker (e.g. AAPL, TSLA)"
+            value={ticker}
+            onChange={(e) => setTicker(e.target.value.toUpperCase())}
+            className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 outline-none w-full md:w-[420px]"
+          />
+          <button
+            className="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-xl font-semibold transition"
+          >
+            Search
+          </button>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {/* Stock Name */}
+        <h2 className="text-2xl font-semibold mb-6 text-center">
+          Apple Inc. ({ticker})
+        </h2>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+          <StockCard title="Current Price" value="$192.45" />
+          <StockCard title="Open" value="$191.80" />
+          <StockCard title="High" value="$193.20" />
+          <StockCard title="Low" value="$190.95" />
+          <StockCard title="Prev Close" value="$191.12" />
+          <StockCard title="Volume" value="54,321,200" />
+        </div>
+
+        {/* Chart */}
+        <div className="mb-8">
+          <StockChart />
+        </div>
+
+        {/* Table */}
+        <StockTable />
+      </div>
+    </div>
   )
 }
 
